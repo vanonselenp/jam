@@ -30,6 +30,17 @@ struct Board {
     physical_size: f32,
 }
 
+#[derive(Component)]
+struct Points {
+    value: u32,
+}
+
+#[derive(Component)]
+struct Position {
+    x: u8,
+    y: u8,
+}
+
 impl Board {
     fn new(size: u8) -> Self {
         let physical_size = f32::from(size) * TILE_SIZE + f32::from(size + 1) * TILE_SPACER;
@@ -41,6 +52,14 @@ impl Board {
 
         return offset + f32::from(pos) * TILE_SIZE + f32::from(pos + 1) * TILE_SPACER;
     }
+}
+
+fn spawn_tiles(
+    mut commands: Commands,
+    query_board: Query<&Board>,
+) {
+    let board = query_board.single();
+    
 }
 
 fn spawn_board(mut commands: Commands) {
