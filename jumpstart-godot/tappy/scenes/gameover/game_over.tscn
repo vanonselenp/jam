@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://ckkkf5oy3v3mj"]
+
+[ext_resource type="LabelSettings" uid="uid://ck7srcd71edfv" path="res://assets/lg_white_48.tres" id="1_j61su"]
+[ext_resource type="Script" path="res://scenes/gameover/game_over.gd" id="1_q3t0n"]
+[ext_resource type="LabelSettings" uid="uid://bu41vf2alm4tj" path="res://assets/lg_red_32.tres" id="2_aa7h6"]
+[ext_resource type="AudioStream" uid="uid://cw3pdc8074cl4" path="res://assets/audio/game_over.wav" id="4_us0a1"]
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q3t0n")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Space" type="Label" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+text = "Press Space
+to continue ..."
+label_settings = ExtResource("2_aa7h6")
+horizontal_alignment = 1
+
+[node name="End" type="Label" parent="MarginContainer"]
+layout_mode = 2
+text = "Game
+Over"
+label_settings = ExtResource("1_j61su")
+horizontal_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="GameOverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_us0a1")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

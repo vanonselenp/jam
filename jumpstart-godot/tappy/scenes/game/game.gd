@@ -3,7 +3,9 @@ extends Node2D
 
 @export var pipes_scene: PackedScene
 @export var pipe_spawn_speed: float
+@export var difficulty: int = 5
 
+@onready var game_over = $CanvasLayer/GameOver
 @onready var spawn_upper = $"Spawn Upper"
 @onready var spawn_lower = $"Spawn Lower"
 @onready var spawn_timer = $"Spawn Timer"
@@ -14,6 +16,7 @@ func _ready():
 	spawn_timer.start(pipe_spawn_speed)
 	spawn_pipe()
 	SignalManager.on_player_death.connect(_on_player_death)
+	ScoreManager.set_score(0)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -32,6 +35,7 @@ func spawn_pipe():
 
 
 func _on_timer_timeout():
+	spawn_timer.start(pipe_spawn_speed - ScoreManager.get_score() * (difficulty / 100.0))
 	spawn_pipe()
 
 

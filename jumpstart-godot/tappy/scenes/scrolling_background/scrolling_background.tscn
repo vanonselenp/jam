@@ -1,0 +1,41 @@
+[gd_scene load_steps=10 format=3 uid="uid://cvja6531dfeo7"]
+
+[ext_resource type="Script" path="res://scenes/scrolling_background/scrolling_background.gd" id="1_us0a1"]
+[ext_resource type="PackedScene" uid="uid://lk87w52sf3q" path="res://scenes/scrolling_background/layers/scrolling_layer.tscn" id="2_evxkr"]
+[ext_resource type="Texture2D" uid="uid://cl6yyut2d5l5w" path="res://assets/background/rocks_2.png" id="3_3rfxo"]
+[ext_resource type="Texture2D" uid="uid://cj3poxsak4c4j" path="res://assets/background/sky.png" id="3_x6028"]
+[ext_resource type="Texture2D" uid="uid://dayt5brtadgid" path="res://assets/background/rocks_1.png" id="4_latlp"]
+[ext_resource type="Texture2D" uid="uid://ga5sbg1xvptp" path="res://assets/background/clouds_1.png" id="5_el18r"]
+[ext_resource type="Texture2D" uid="uid://dsfhj7busmk8x" path="res://assets/background/clouds_2.png" id="6_gpaxk"]
+[ext_resource type="Texture2D" uid="uid://do5dpepy4ieim" path="res://assets/background/clouds_3.png" id="7_5orng"]
+[ext_resource type="Texture2D" uid="uid://lnbjagy16p7o" path="res://assets/background/clouds_4.png" id="8_fkbh5"]
+
+[node name="ScrollingBackground" type="ParallaxBackground"]
+script = ExtResource("1_us0a1")
+
+[node name="Sky" parent="." instance=ExtResource("2_evxkr")]
+texture = ExtResource("3_x6028")
+
+[node name="Clouds5" parent="." instance=ExtResource("2_evxkr")]
+texture = ExtResource("8_fkbh5")
+scroll_scale = 0.1
+
+[node name="Clouds3" parent="." instance=ExtResource("2_evxkr")]
+texture = ExtResource("7_5orng")
+scroll_scale = 0.2
+
+[node name="Clouds2" parent="." instance=ExtResource("2_evxkr")]
+texture = ExtResource("6_gpaxk")
+scroll_scale = 0.3
+
+[node name="Clouds1" parent="." instance=ExtResource("2_evxkr")]
+texture = ExtResource("5_el18r")
+scroll_scale = 0.4
+
+[node name="BackgroundRocks" parent="." instance=ExtResource("2_evxkr")]
+texture = ExtResource("4_latlp")
+scroll_scale = 0.5
+
+[node name="ForegroundRocks" parent="." instance=ExtResource("2_evxkr")]
+texture = ExtResource("3_3rfxo")
+scroll_scale = 0.7
