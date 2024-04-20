@@ -7,6 +7,3 @@
 
 [node name="Cup" parent="." index="3" instance=ExtResource("2_se04n")]
 position = Vector2(297, 447)
-
-[node name="Cup2" parent="." index="4" instance=ExtResource("2_se04n")]
-position = Vector2(603, 323)
