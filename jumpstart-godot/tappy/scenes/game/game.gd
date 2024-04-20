@@ -2,7 +2,7 @@ extends Node2D
 
 
 @export var pipes_scene: PackedScene
-@export var pipe_spawn_speed: int
+@export var pipe_spawn_speed: float
 
 @onready var spawn_upper = $"Spawn Upper"
 @onready var spawn_lower = $"Spawn Lower"
