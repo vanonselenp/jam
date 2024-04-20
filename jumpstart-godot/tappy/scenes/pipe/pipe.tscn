@@ -6,7 +6,7 @@
 size = Vector2(70, 560)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y3bhx"]
-size = Vector2(50, 70)
+size = Vector2(50, 53)
 
 [node name="Pipe" type="Area2D"]
 
@@ -20,5 +20,5 @@ position = Vector2(0, 350)
 shape = SubResource("RectangleShape2D_ngunv")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(0, 35)
+position = Vector2(0, 43.5)
 shape = SubResource("RectangleShape2D_y3bhx")

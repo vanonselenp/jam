@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://c7ywl45418ju5"]
+[gd_scene load_steps=7 format=3 uid="uid://c7ywl45418ju5"]
 
 [ext_resource type="Texture2D" uid="uid://cl6yyut2d5l5w" path="res://assets/background/rocks_2.png" id="1_aod6g"]
 [ext_resource type="Script" path="res://scenes/game/game.gd" id="1_fg10v"]
 [ext_resource type="PackedScene" uid="uid://ba2u03d2pevfw" path="res://scenes/plane/plane.tscn" id="2_00mlv"]
 [ext_resource type="PackedScene" uid="uid://cxxs4jcind67j" path="res://scenes/barrier/barrier.tscn" id="3_77v7q"]
 [ext_resource type="PackedScene" uid="uid://lvw4f4ac13jx" path="res://scenes/pipes/pipes.tscn" id="3_xbxp3"]
+[ext_resource type="PackedScene" uid="uid://bpa2sxfe5736n" path="res://scenes/hud/hud.tscn" id="6_1sl1j"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_fg10v")
@@ -33,5 +34,8 @@ position = Vector2(540, 540)
 [node name="Spawn Timer" type="Timer" parent="."]
 wait_time = 2.0
 
-[connection signal="on_player_death" from="Plane" to="." method="_on_player_death"]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Hud" parent="CanvasLayer" instance=ExtResource("6_1sl1j")]
+
 [connection signal="timeout" from="Spawn Timer" to="." method="_on_timer_timeout"]

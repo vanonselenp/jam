@@ -11,8 +11,9 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	spawn_pipe()
 	spawn_timer.start(pipe_spawn_speed)
+	spawn_pipe()
+	SignalManager.on_player_death.connect(_on_player_death)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -40,6 +41,3 @@ func _on_player_death():
 
 func stop_pipes():
 	spawn_timer.stop()
-	var pipes = get_tree().get_nodes_in_group("pipe")
-	for pipe in pipes:
-		pipe.set_process(false)

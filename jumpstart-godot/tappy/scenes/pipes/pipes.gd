@@ -1,16 +1,17 @@
 extends Node2D
 
 
-@export var speed = 120
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	SignalManager.on_player_death.connect(on_player_death)
 
+
+func on_player_death():
+	set_process(false)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	position.x -= delta * speed
+	position.x -= delta * GameManager.SCROLL_SPEED
 	
 
 func _on_pipes_screen_exited():
@@ -18,11 +19,9 @@ func _on_pipes_screen_exited():
 
 
 func _on_laser_body_exited(body):
-	if body.is_in_group("player") == true:
-		print("point scored")
-
+	if body.is_in_group(GameManager.GROUP_PLAYER) == true:
+		ScoreManager.increment_score()
 
 func _on_pipe_body_entered(body):
-	if body.is_in_group("player"):
-		print("pipe entered: ", body)
+	if body.is_in_group(GameManager.GROUP_PLAYER):
 		body.death()
