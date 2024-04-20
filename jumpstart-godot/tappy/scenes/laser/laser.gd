@@ -10,8 +10,3 @@ func _ready():
 
 func _on_player_death():
 	animation_player.stop()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

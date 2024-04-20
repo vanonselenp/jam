@@ -12,7 +12,7 @@ func _ready():
 	SignalManager.on_player_death.connect(_on_player_death)
 
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("fly") and space.visible:
 		GameManager.load_main_scene()
 
