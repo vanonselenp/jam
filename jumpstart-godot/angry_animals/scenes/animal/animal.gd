@@ -5,21 +5,26 @@ enum ANIMAL_STATE { READY, DRAG, RELEASE }
 
 const DRAG_LIMIT_MAX: Vector2 = Vector2(0, 60)
 const DRAG_LIMIT_MIN: Vector2 = Vector2(-60, 0)
+const IMPULSE_MULT: float = 20.0
+const IMPULSE_MAX: float = 1200.0
 
 var _state: ANIMAL_STATE = ANIMAL_STATE.READY
 var _start: Vector2 = Vector2.ZERO
 var _drag_start: Vector2 = Vector2.ZERO
 var _dragged_vector: Vector2 = Vector2.ZERO
 var _previous_dragged_vector: Vector2 = Vector2.ZERO
+var _arrow_scale_x: float = 0.0
 
 @onready var label = $Label
-@onready var strech_sound = $StrechSound
 @onready var arrow = $Arrow
+@onready var strech_sound = $StrechSound
+@onready var launch_sound = $LaunchSound
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_start = position
 	arrow.hide()
+	_arrow_scale_x = arrow.scale.x
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -49,16 +54,25 @@ func die() -> void:
 	queue_free()
 
 
+func set_drag() -> void:
+	_drag_start = get_global_mouse_position()
+	arrow.show()
+
+
+func set_release() -> void:
+	freeze = false
+	apply_central_impulse(get_impulse())
+	launch_sound.play()
+	arrow.hide()	
+
+
 func set_new_state(new_state: ANIMAL_STATE) -> void:
 	_state = new_state
 
 	if _state == ANIMAL_STATE.RELEASE:
-		freeze = false
-		arrow.hide()
-
+		set_release()
 	elif _state == ANIMAL_STATE.DRAG:
-		_drag_start = get_global_mouse_position()
-		arrow.show()
+		set_drag()
 
 
 func play_steched_sound() -> void:
@@ -70,7 +84,16 @@ func get_dragged_vector(gmp: Vector2) -> Vector2:
 	return gmp - _drag_start
 
 
+func get_impulse() -> Vector2:
+	return _dragged_vector * -1 * IMPULSE_MULT
+
+
 func scale_arrow() -> void:
+	var impulse_length = get_impulse().length()
+	var percentage = impulse_length / IMPULSE_MAX
+	var arrow_length = (_arrow_scale_x * percentage) + _arrow_scale_x
+	arrow.scale.x = arrow_length
+	
 	arrow.rotation = (_start - position).angle()
 
 
