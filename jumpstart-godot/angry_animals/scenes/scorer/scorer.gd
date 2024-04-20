@@ -21,4 +21,4 @@ func on_attempt_made():
 func on_cup_removed():
 	_cup_hits += 1
 	if _cup_hits == _total_cups:
-		pass
+		SignalManager.on_level_over.emit()
