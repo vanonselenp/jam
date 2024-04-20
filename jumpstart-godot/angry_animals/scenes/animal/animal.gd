@@ -10,12 +10,16 @@ var _state: ANIMAL_STATE = ANIMAL_STATE.READY
 var _start: Vector2 = Vector2.ZERO
 var _drag_start: Vector2 = Vector2.ZERO
 var _dragged_vector: Vector2 = Vector2.ZERO
+var _previous_dragged_vector: Vector2 = Vector2.ZERO
 
 @onready var label = $Label
+@onready var strech_sound = $StrechSound
+@onready var arrow = $Arrow
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_start = position
+	arrow.hide()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -50,16 +54,28 @@ func set_new_state(new_state: ANIMAL_STATE) -> void:
 
 	if _state == ANIMAL_STATE.RELEASE:
 		freeze = false
+		arrow.hide()
 
 	elif _state == ANIMAL_STATE.DRAG:
 		_drag_start = get_global_mouse_position()
+		arrow.show()
+
+
+func play_steched_sound() -> void:
+	if (_previous_dragged_vector - _dragged_vector).length() > 0 and strech_sound.playing == false:
+		strech_sound.play()
 
 
 func get_dragged_vector(gmp: Vector2) -> Vector2:
 	return gmp - _drag_start
 
 
+func scale_arrow() -> void:
+	arrow.rotation = (_start - position).angle()
+
+
 func drag_in_limits(gmp: Vector2) -> void:
+	_previous_dragged_vector = _dragged_vector
 	_dragged_vector = get_dragged_vector(gmp)
 	
 	_dragged_vector.x = clampf(
@@ -89,5 +105,7 @@ func update_drag() -> void:
 		return
 		
 	var gmp = get_global_mouse_position()
+	play_steched_sound()
 	drag_in_limits(gmp)
+	scale_arrow()
 
