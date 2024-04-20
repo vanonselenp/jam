@@ -14,11 +14,13 @@ var _drag_start: Vector2 = Vector2.ZERO
 var _dragged_vector: Vector2 = Vector2.ZERO
 var _previous_dragged_vector: Vector2 = Vector2.ZERO
 var _arrow_scale_x: float = 0.0
+var _last_collision_count: int = 0
 
 @onready var label = $Label
 @onready var arrow = $Arrow
 @onready var strech_sound = $StrechSound
 @onready var launch_sound = $LaunchSound
+@onready var kick_sound = $KickSound
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -38,15 +40,17 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 	die()
 
 
-func _on_input_event(viewport, event: InputEvent, shape_idx):
+func _on_input_event(_viewport, event: InputEvent, _shape_idx):
 	if _state == ANIMAL_STATE.READY and event.is_action_pressed("drag"):
 		set_new_state(ANIMAL_STATE.DRAG)
 
 
-func update(delta: float) -> void:
+func update(_delta: float) -> void:
 	match _state:
 		ANIMAL_STATE.DRAG:
 			update_drag()
+		ANIMAL_STATE.RELEASE:
+			update_flight()
 
 
 func die() -> void:
@@ -64,6 +68,7 @@ func set_release() -> void:
 	apply_central_impulse(get_impulse())
 	launch_sound.play()
 	arrow.hide()	
+	SignalManager.on_attempt_made.emit()
 
 
 func set_new_state(new_state: ANIMAL_STATE) -> void:
@@ -93,7 +98,7 @@ func scale_arrow() -> void:
 	var percentage = impulse_length / IMPULSE_MAX
 	var arrow_length = (_arrow_scale_x * percentage) + _arrow_scale_x
 	arrow.scale.x = arrow_length
-	
+
 	arrow.rotation = (_start - position).angle()
 
 
@@ -126,9 +131,30 @@ func detect_release() -> bool:
 func update_drag() -> void:
 	if detect_release():
 		return
-		
+
 	var gmp = get_global_mouse_position()
 	play_steched_sound()
 	drag_in_limits(gmp)
 	scale_arrow()
 
+
+func play_collision() -> void:
+	if (_last_collision_count == 0
+		and get_contact_count() > 0
+		and kick_sound.playing == false):
+		kick_sound.play()
+
+	_last_collision_count = get_contact_count()
+
+
+func update_flight() -> void:
+	play_collision()
+
+
+func _on_sleeping_state_changed():
+	if sleeping:
+		var cups: Array[Node2D] = get_colliding_bodies()
+		for cup in cups:
+			cup.remove_cup()
+
+		call_deferred("die")
