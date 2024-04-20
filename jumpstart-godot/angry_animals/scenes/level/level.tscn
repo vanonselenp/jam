@@ -25,7 +25,7 @@ position = Vector2(0, 605)
 [node name="Scorer" parent="." instance=ExtResource("4_jsl6r")]
 
 [node name="LaunchArea" parent="." instance=ExtResource("6_mykxd")]
-position = Vector2(59, 366)
+position = Vector2(28, 397)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
