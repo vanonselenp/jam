@@ -4,12 +4,12 @@
 [ext_resource type="Script" path="res://scenes/pipes/pipes.gd" id="1_yhdp0"]
 [ext_resource type="PackedScene" uid="uid://bkmd5cupsdbxq" path="res://scenes/pipe/pipes.tscn" id="2_7aq35"]
 
-[node name="Pipes" type="Node2D"]
+[node name="Pipes" type="Node2D" groups=["pipe"]]
 script = ExtResource("1_yhdp0")
 
 [node name="Laser" parent="." instance=ExtResource("1_ko2i3")]
 
-[node name="Lower" parent="." instance=ExtResource("2_7aq35")]
+[node name="Lower" parent="." groups=["pipe"] instance=ExtResource("2_7aq35")]
 position = Vector2(2.08165e-12, 80)
 
 [node name="Upper" parent="." instance=ExtResource("2_7aq35")]
