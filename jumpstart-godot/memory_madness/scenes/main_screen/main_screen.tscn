@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dhwyvh654j7l2"]
+[gd_scene load_steps=6 format=3 uid="uid://dhwyvh654j7l2"]
 
 [ext_resource type="Script" path="res://scenes/main_screen/main_screen.gd" id="1_7j7c3"]
 [ext_resource type="FontFile" uid="uid://bb167qh56f3i4" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="1_rdk0e"]
 [ext_resource type="PackedScene" uid="uid://cgnogm3urf6hn" path="res://scenes/front_sprite/front_sprite.tscn" id="3_5uw48"]
+[ext_resource type="PackedScene" uid="uid://xfta5jfqa3pi" path="res://scenes/level_button/level_button.tscn" id="3_oj6i3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cem7n"]
 font = ExtResource("1_rdk0e")
@@ -19,6 +20,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7j7c3")
+level_button_scene = ExtResource("3_oj6i3")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -56,6 +58,7 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_constants/separation = 8
 
 [node name="Spacer2" type="Control" parent="VBoxContainer"]
 layout_mode = 2

@@ -1,14 +1,24 @@
 extends Control
 
 
-@onready var hb_sprites = $VBoxContainer/HBSprites
+@export var level_button_scene: PackedScene
 
+@onready var hb_levels = $VBoxContainer/HBLevels
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var random_items = [randf_range(0, 49),randf_range(0, 49),randf_range(0, 49),randf_range(0, 49)]
-	
+	setup_grid()
 
+
+func setup_grid() -> void:
+	for level in GameManager.LEVELS:
+		create_level_button(level)
+
+
+func create_level_button(level_num: int) -> void:
+	var button = level_button_scene.instantiate()
+	hb_levels.add_child(button)
+	button.set_level_number(level_num)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
