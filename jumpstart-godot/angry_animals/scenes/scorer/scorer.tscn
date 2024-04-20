@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://me5b4ejj4w6e"]
+
+[ext_resource type="Script" path="res://scenes/scorer/scorer.gd" id="1_iufsm"]
+
+[node name="Scorer" type="Node"]
+script = ExtResource("1_iufsm")

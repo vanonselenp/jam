@@ -30,4 +30,5 @@ func _on_mouse_exited():
 
 
 func _on_pressed():
+	ScoreManager.set_level_selected(level_number)
 	get_tree().change_scene_to_packed(_level_scene)
