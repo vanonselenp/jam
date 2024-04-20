@@ -20,7 +20,7 @@ func _physics_process(delta):
 	move_and_slide()
 	
 	if is_on_floor():
-		animated_sprite_2d.stop()
+		death()
 
 
 func fly(delta: float) -> void:
@@ -31,7 +31,7 @@ func fly(delta: float) -> void:
 		animation_player.play("power")
 		
 		
-func death(delta: float) -> void:
+func death() -> void:
 	set_physics_process(false)
 	animated_sprite_2d.stop()
 	
