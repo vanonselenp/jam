@@ -11,6 +11,7 @@ func _ready():
 	run_animation()
 
 
+
 func get_random_spin_time() -> float:
 	return randf_range(SPIN_TIME_RANGE.x, SPIN_TIME_RANGE.y)
 
