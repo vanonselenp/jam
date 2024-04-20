@@ -1,0 +1,98 @@
+[gd_scene load_steps=8 format=3 uid="uid://bwsnxbsn8hthy"]
+
+[ext_resource type="Texture2D" uid="uid://3u5mpyywfhkd" path="res://assets/ui/panel_beige.png" id="1_jyjp7"]
+[ext_resource type="Script" path="res://scenes/level_button/level_button.gd" id="2_jkwkf"]
+[ext_resource type="LabelSettings" uid="uid://ce27pw5lh20mp" path="res://assets/lg_48_white.tres" id="2_qh100"]
+[ext_resource type="LabelSettings" uid="uid://dkg73gw6glijn" path="res://assets/lg_24_white.tres" id="3_422cj"]
+
+[sub_resource type="Animation" id="Animation_d3xth"]
+resource_name = "hover"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0001, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1)]
+}
+
+[sub_resource type="Animation" id="Animation_a1ivf"]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3ag1m"]
+_data = {
+"RESET": SubResource("Animation_a1ivf"),
+"hover": SubResource("Animation_d3xth")
+}
+
+[node name="LevelButton" type="TextureButton"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.1, 1.1)
+pivot_offset = Vector2(50, 50)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("1_jyjp7")
+script = ExtResource("2_jkwkf")
+
+[node name="MC" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MC"]
+layout_mode = 2
+
+[node name="LevelLabel" type="Label" parent="MC/VBoxContainer"]
+layout_mode = 2
+text = "3
+"
+label_settings = ExtResource("2_qh100")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="MC/VBoxContainer"]
+layout_mode = 2
+text = "1000"
+label_settings = ExtResource("3_422cj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3ag1m")
+}
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

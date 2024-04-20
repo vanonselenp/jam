@@ -10,4 +10,5 @@ func remove_cup() -> void:
 
 func _on_animation_player_animation_finished(_anim_name):
 	SignalManager.on_cup_removed.emit()
+	print("free")
 	queue_free()
