@@ -10,11 +10,6 @@ func _ready():
 	load_item_images() # Replace with function body.
 
 
-var example = {
-	"name": "",
-	"texture": "",
-}
-
 func add_file_to_list(filename: String):
 	var path = "%s/%s" % [IMAGE_PATH, filename]
 	var texture: CompressedTexture2D = load(path)
@@ -37,3 +32,8 @@ func load_item_images() -> void:
 	for filename in filenames:
 		if ".import" not in filename:
 			add_file_to_list(filename)
+
+
+func get_random_image() -> Dictionary:
+	return items.pick_random()
+	
