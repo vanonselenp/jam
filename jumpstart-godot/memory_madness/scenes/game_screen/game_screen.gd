@@ -1,10 +1,13 @@
 extends Control
 
+
 @onready var sound = $Sound
+@onready var tile_container = $HBoxContainer/MarginGrid/TileContainer
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	SignalManager.on_level_selected.connect(on_level_selected)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -15,3 +18,12 @@ func _process(delta):
 func _on_exit_button_pressed():
 	SoundManager.play_button_click(sound)
 	SignalManager.on_game_exited_pressed.emit()
+
+
+func on_level_selected(level_selected: int) -> void:
+	var level_selection = GameManager.get_level_selection(level_selected)
+	var frame = ImageManager.get_random_frame()
+	
+	tile_container.
+
+	

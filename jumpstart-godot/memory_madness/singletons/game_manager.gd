@@ -10,3 +10,23 @@ const LEVELS: Dictionary = {
 	6: { "rows": 6, "cols": 6 },
 }
 
+
+func get_level_selection(level_number: int) -> Dictionary:
+	var level = GameManager.LEVELS[level_number]
+	var total_tiles = level.rows * level.cols
+	var target_pairs: int = total_tiles / 2
+	var selected_images = []
+	
+	ImageManager.shuffle_images()
+	
+	for image in range(target_pairs):
+		selected_images.append(ImageManager.get_image(image))
+		selected_images.append(ImageManager.get_image(image))
+	
+	selected_images.shuffle()
+	
+	return {
+		"target_pairs": target_pairs,
+		"level": level,
+		"images": selected_images
+	}

@@ -2,10 +2,18 @@ extends Node
 
 
 const IMAGE_PATH = "res://assets/glitch"
+const FRAMES = [
+	preload("res://assets/frames/blue_frame.png"),
+	preload("res://assets/frames/green_frame.png"),
+	preload("res://assets/frames/yellow_frame.png"),
+	preload("res://assets/frames/red_frame.png"),
+]
+const HIDDEN_FRAME = preload("res://assets/frames/hidden_frame_blank.png")
+
+
 var items = []
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	load_item_images() # Replace with function body.
 
@@ -36,4 +44,15 @@ func load_item_images() -> void:
 
 func get_random_image() -> Dictionary:
 	return items.pick_random()
-	
+
+
+func get_random_frame() -> CompressedTexture2D:
+	return FRAMES.pick_random()
+
+
+func get_image(index: int) -> Dictionary:
+	return items[index]
+
+
+func shuffle_images() -> void:
+	items.shuffle()
