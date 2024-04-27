@@ -21,11 +21,15 @@ const SOUNDS: Dictionary = {
 func play_sound(player: AudioStreamPlayer, key: String) -> void:
 	if not SOUNDS.has(key):
 		return
-	
 	player.stop()
+	player.volume_db = 0.0
 	player.stream = SOUNDS[key]
 	player.play()
 
 
 func play_button_click(player: AudioStreamPlayer) -> void:
 	play_sound(player, SOUND_SELECT_BUTTON)
+
+
+func play_tile_click(player: AudioStreamPlayer) -> void:
+	play_sound(player, SOUND_SELECT_TITLE)

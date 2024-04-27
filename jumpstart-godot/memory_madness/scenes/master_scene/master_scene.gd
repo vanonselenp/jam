@@ -25,10 +25,11 @@ func show_game(state: GAME_STATE) -> void:
 
 func on_game_exited_pressed() -> void:
 	show_game(GAME_STATE.MAIN)
+	GameManager.clear_nodes_of_group(GameManager.TILE_GROUP)
 	SoundManager.play_sound(sound, SoundManager.SOUND_MAIN_MENU)
 
 
-func on_level_selected(level_num: int) -> void:
+func on_level_selected(_level_num: int) -> void:
 	show_game(GAME_STATE.GAME)
 	SoundManager.play_sound(sound, SoundManager.SOUND_IN_GAME)
 	

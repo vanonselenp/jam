@@ -5,24 +5,27 @@ extends Control
 
 @onready var sound = $Sound
 @onready var tile_container = $HBoxContainer/MarginGrid/TileContainer
+@onready var scorer: Scorer = $Scorer
+@onready var moves_label = $HBoxContainer/MarginLabels/VBoxContainer/HB/MovesLabel
+@onready var pairs_label = $HBoxContainer/MarginLabels/VBoxContainer/HB2/PairsLabel
+@onready var h_box_container = $HBoxContainer
+@onready var game_over = $GameOver
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	SignalManager.on_level_selected.connect(on_level_selected)
+	SignalManager.on_game_over.connect(on_game_over)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _process(_delta):
+	moves_label.text = scorer.get_moves_made()
+	pairs_label.text = scorer.get_pairs_made()
 
 
 func _on_exit_button_pressed():
 	SoundManager.play_button_click(sound)
-
-	for child in tile_container.get_children():
-		child.queue_free()
-
 	SignalManager.on_game_exited_pressed.emit()
 
 
@@ -40,4 +43,12 @@ func on_level_selected(level_selected: int) -> void:
 	
 	for item in level_selection.images:
 		add_memory_tile(item, frame_image)
+	
+	scorer.clear_new_game(level_selection.target_pairs)
+	h_box_container.show()
+	game_over.hide()
+
+
+func on_game_over(_moves: int) -> void:
+	h_box_container.hide()
 

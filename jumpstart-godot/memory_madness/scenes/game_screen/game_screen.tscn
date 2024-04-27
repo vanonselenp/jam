@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bf8kl8o2r0r66"]
+[gd_scene load_steps=10 format=3 uid="uid://bf8kl8o2r0r66"]
 
 [ext_resource type="Script" path="res://scenes/game_screen/game_screen.gd" id="1_c7x1m"]
 [ext_resource type="LabelSettings" uid="uid://dou4u65afq00m" path="res://assets/gm_32_darkgrey.tres" id="1_k1qpa"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://dn0x5eqlr1eay" path="res://assets/ui/blue_button00.png" id="2_icp2n"]
 [ext_resource type="Texture2D" uid="uid://d3aqf3rx746ky" path="res://assets/ui/yellow_button00.png" id="3_37kvk"]
 [ext_resource type="Texture2D" uid="uid://covxi723tlbo3" path="res://assets/ui/green_button00.png" id="4_h4xvf"]
+[ext_resource type="PackedScene" uid="uid://qaxmjmlyj4nb" path="res://scenes/scorer/scorer.tscn" id="8_pxe2d"]
+[ext_resource type="PackedScene" uid="uid://dysxc5r1oetkp" path="res://scenes/game_over/game_over.tscn" id="9_v2cow"]
 
 [node name="GameScreen" type="Control"]
 layout_mode = 3
@@ -17,6 +19,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_c7x1m")
 mem_tile_scene = ExtResource("2_bo7i8")
+
+[node name="GameOver" parent="." instance=ExtResource("9_v2cow")]
+layout_mode = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -103,5 +108,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Sound" type="AudioStreamPlayer" parent="."]
+
+[node name="Scorer" parent="." instance=ExtResource("8_pxe2d")]
 
 [connection signal="pressed" from="HBoxContainer/MarginLabels/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

@@ -1,6 +1,7 @@
 extends Node
 
 
+const TILE_GROUP = "tile"
 const LEVELS: Dictionary = {
 	1: { "rows": 2, "cols": 2 },
 	2: { "rows": 3, "cols": 4 },

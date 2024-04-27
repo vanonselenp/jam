@@ -19,7 +19,3 @@ func create_level_button(level_num: int) -> void:
 	var button = level_button_scene.instantiate()
 	hb_levels.add_child(button)
 	button.set_level_number(level_num)
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
