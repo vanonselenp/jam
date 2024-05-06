@@ -15,6 +15,13 @@ const HURT_TIME: float = 0.3
 const JUMP_VELOCITY: float = -400.0
 
 
+enum PLAYER_STATE {
+	Idle, Jump, Run, Hurt, Fall
+}
+
+var current_state = PLAYER_STATE.Idle
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -26,11 +33,11 @@ func _physics_process(delta):
 		velocity.y += GRAVITY * delta
 
 	get_input()
-
+	calculate_state()
 	move_and_slide()
 
 
-func get_input():
+func get_input() -> void:
 	velocity.x = 0
 	
 	if Input.is_action_pressed("left"):
@@ -43,3 +50,16 @@ func get_input():
 		velocity.y = JUMP_VELOCITY
 
 	velocity.y = clampf(velocity.y, JUMP_VELOCITY, MAX_FALL)
+
+
+func calculate_state() -> void:
+	
+	if current_state == PLAYER_STATE.Hurt:
+		return
+
+	
+
+
+
+
+
