@@ -22,19 +22,17 @@ enum PLAYER_STATE {
 var current_state = PLAYER_STATE.Idle
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += GRAVITY * delta
 
 	get_input()
-	calculate_state()
 	move_and_slide()
+	calculate_state()
 
 
 func get_input() -> void:
@@ -42,9 +40,11 @@ func get_input() -> void:
 	
 	if Input.is_action_pressed("left"):
 		velocity.x = -RUN_SPEED
+		sprite_2d.flip_h = true
 
 	if Input.is_action_pressed("right"):
 		velocity.x = RUN_SPEED
+		sprite_2d.flip_h = false
 
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
@@ -53,13 +53,38 @@ func get_input() -> void:
 
 
 func calculate_state() -> void:
-	
 	if current_state == PLAYER_STATE.Hurt:
 		return
 
+	if is_on_floor():
+		if velocity.x == 0:
+			set_player_state(PLAYER_STATE.Idle)
+		else: 
+			set_player_state(PLAYER_STATE.Run)
 	
+	else:
+		if velocity.y < 0:
+			set_player_state(PLAYER_STATE.Jump)
+		else:
+			set_player_state(PLAYER_STATE.Fall)
 
 
+func set_player_state(new_state: PLAYER_STATE) -> void:
+	if new_state == current_state:
+		return
 
+	current_state = new_state
 
+	match current_state:
+		PLAYER_STATE.Idle:
+			animation_player.play("idle")
+
+		PLAYER_STATE.Run:
+			animation_player.play("run")
+
+		PLAYER_STATE.Jump:
+			animation_player.play("jump")
+
+		PLAYER_STATE.Fall:
+			animation_player.play("fall")
 
