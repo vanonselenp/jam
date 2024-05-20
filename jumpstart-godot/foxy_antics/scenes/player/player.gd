@@ -6,6 +6,8 @@ class_name Player
 
 @onready var sprite_2d = $Sprite2D
 @onready var animation_player = $AnimationPlayer
+@onready var debug_label = $DebugLabel
+@onready var sound_player = $SoundPlayer
 
 
 const GRAVITY: float = 1000.0
@@ -33,7 +35,16 @@ func _physics_process(delta):
 	get_input()
 	move_and_slide()
 	calculate_state()
+	update_debug_label()
 
+
+func update_debug_label() -> void:
+	debug_label.text = "floor:%s\n%s\n%.0f,%.0f" % [
+		is_on_floor(),
+		PLAYER_STATE.keys()[current_state],
+		velocity.x,
+		velocity.y
+	]
 
 func get_input() -> void:
 	velocity.x = 0
@@ -48,6 +59,7 @@ func get_input() -> void:
 
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		SoundManager.play_clip(sound_player, SoundManager.SOUND_JUMP)
 
 	velocity.y = clampf(velocity.y, JUMP_VELOCITY, MAX_FALL)
 
@@ -72,6 +84,10 @@ func calculate_state() -> void:
 func set_player_state(new_state: PLAYER_STATE) -> void:
 	if new_state == current_state:
 		return
+
+	if current_state == PLAYER_STATE.Fall:
+		if new_state in [PLAYER_STATE.Run, PLAYER_STATE.Idle]:
+			SoundManager.play_clip(sound_player, SoundManager.SOUND_LAND)
 
 	current_state = new_state
 

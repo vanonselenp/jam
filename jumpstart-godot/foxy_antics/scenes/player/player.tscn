@@ -114,7 +114,7 @@ _data = {
 "run": SubResource("Animation_sdbjg")
 }
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_8hmy6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -131,3 +131,16 @@ libraries = {
 "": SubResource("AnimationLibrary_en20k")
 }
 autoplay = "idle"
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -22.0
+offset_top = -48.0
+offset_right = 76.0
+offset_bottom = 159.0
+scale = Vector2(0.198089, 0.199259)
+theme_override_font_sizes/font_size = 48
+text = "asdf
+asd
+ad"
+
+[node name="SoundPlayer" type="AudioStreamPlayer2D" parent="."]
